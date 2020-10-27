@@ -1,0 +1,50 @@
+.App {
+  height:100vh;
+}
+
+.login {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.Scheduler {
+   height: 80vh;
+   /* width: 300px; */
+   margin: 2vw;
+   /* display: flex; */
+   align-items: center;
+   overflow: auto;
+}
+
+.Card {
+  height: 36vh;
+  /* width: 300px; */
+  margin: 2vw;
+  /* display: flex; */
+  align-items: center;
+}
+
+.CardContent {
+  height: 100%;
+}
+
+.CardMedia {
+  width: 100%;
+  height: auto;
+}
+
+.ScrollList {
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 20%;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.RowInput {
+  width: 80%;
+}

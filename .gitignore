@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+client/node_modules
 
 # testing
 /coverage
@@ -22,4 +22,5 @@ yarn-error.log*
 
 config.js
 config.json
-src/config.js
+service-account.json
+client/src/config.json
