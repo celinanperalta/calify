@@ -53,8 +53,8 @@ class App extends Component {
     api spotify
     local: 3000 / accessToken
     */
-    // var isLoggedIn = await fetch("https://cors-anywhere.herokuapp.com/http://localhost:8888/login").then(res => console.log(res.text()));
-    var isLoggedIn = await fetch("http://localhost:8888/api/login").then(res => console.log(res.text()));
+    var isLoggedIn = await fetch("https://cors-anywhere.herokuapp.com/http://localhost:8888/login").then(res => console.log(res.text()));
+    // var isLoggedIn = await fetch("http://localhost:8888/api/login").then(res => console.log(res.text()));
 
     console.log("Getting token");
     const accessToken = spfetch.getToken();
