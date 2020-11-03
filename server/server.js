@@ -65,7 +65,7 @@ function createFirebaseAccount(spotifyID, displayName, photoURL, accessToken) {
     const uid = `${spotifyID}`;
 
     // Save the access token to the Firebase Realtime Database.
-    const databaseTask = admin.database().ref(`/spotifyAccessToken/${uid}`)
+    const databaseTask = admin.database().ref(`/users/${uid}`)
         .set(accessToken);
 
     // Create or update the user account.
@@ -241,7 +241,11 @@ app.get('/api/refresh_token', function (req, res) {
     });
 });
 
+app.get('/api/hello', function (req, res) {
+    console.log("it works");
+});
 
+//todo: add api endpoint for getting playlists, user info, and controlling playback
 
 console.log('Listening on 8888');
 app.listen(8888);

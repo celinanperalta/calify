@@ -1,0 +1,30 @@
+
+{
+    //user table
+    "users" :
+    {
+        "user_id" : {
+            "access_token" : "",
+            "refresh_token" : "",
+            "schedules": ["schedule_id_1", "schedule_id_2"]
+        }
+    },
+    //schedule table
+    "schedules" : {
+        "schedule_id" : { 
+        "name": "Dummy Schedule",
+        "created_date" : "",
+        "last_updated_date" : "",
+        "time_zone" : "",
+        "playlist_rows": [
+                {
+                    "uri" : "",
+                    "start_time" : "",
+                    "end_time": ""
+                }
+            ]
+        }
+    }
+}
+
+//playlist_rows

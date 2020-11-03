@@ -28,7 +28,7 @@ import Firebase from 'firebase';
 //Components
 import Playlists from './components/Playlists';
 import Scheduler from './components/Scheduler';
-import Queue from './components/Queue';
+// import Queue from './components/Queue';
 
 
 class App extends Component {
@@ -53,8 +53,19 @@ class App extends Component {
     api spotify
     local: 3000 / accessToken
     */
-    var isLoggedIn = await fetch("https://cors-anywhere.herokuapp.com/http://localhost:8888/login").then(res => console.log(res.text()));
-    // var isLoggedIn = await fetch("http://localhost:8888/api/login").then(res => console.log(res.text()));
+    var isLoggedIn = await fetch("https://cors-anywhere.herokuapp.com/http://localhost:8888/login").then(res => {
+      console.log(res.text());
+      this.setState({
+        isLoggedIn: true
+      });
+    });
+
+    // var isLoggedIn = await fetch("http://localhost:8888/api/login").then(res => {
+    //   console.log(res.text());
+    //   spfetch.login();
+    // });
+
+    console.log("set state: ", this.state.isLoggedIn);
 
     console.log("Getting token");
     const accessToken = spfetch.getToken();
@@ -70,15 +81,6 @@ class App extends Component {
         total: numFollowers
       }
     } = await spfetch('/v1/me');
-
-    // createFirebaseAccount(href, name, imageUrl, accessToken).then(firebaseToken => {
-    // // Serve an HTML page that signs the user in and updates the user profile.
-    //   return signInFirebaseTemplate(firebaseToken, name, imageUrl, accessToken);
-    // });
-
-    this.setState({
-      isLoggedIn: isLoggedIn
-    });
 
   };
 

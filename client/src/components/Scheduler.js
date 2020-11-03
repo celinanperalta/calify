@@ -156,7 +156,7 @@ class Scheduler extends React.Component {
     }
 
 
-    handleAddRow = () => {
+    handleAddRow = async () => {
         this.setState((prevState, props) => {
             const row = {
                 id: this.state.count,
@@ -249,6 +249,16 @@ class Scheduler extends React.Component {
                             variant="contained"
                             color="primary"
                             className={''}
+                            onClick={this.handleAddRow}>
+                            Create New Schedule
+                        </Button>
+                    </Grid>
+                    {/* <Grid item xs={3}>
+                        <Button
+                            centered
+                            variant="contained"
+                            color="primary"
+                            className={''}
                             onClick={this.setSortedRows}>
                             Sort
                         </Button>
@@ -262,8 +272,8 @@ class Scheduler extends React.Component {
                             onClick={this.handleGetPlaying}>
                             Get Next
                         </Button>
-                    </Grid>
-                    <Grid item xs={3}>
+                    </Grid> */}
+                    {/* <Grid item xs={3}>
                         <Button
                             centered
                             variant="contained"
@@ -272,10 +282,10 @@ class Scheduler extends React.Component {
                             onClick={this.checkTimeOverlap}>
                             Check Overlap
                         </Button>
-                    </Grid>
+                    </Grid> */}
                 </Grid>
         </CardContent> 
-        < Paper className = "ScrollList" >
+        <Paper className = "ScrollList" >
             <List component="nav" aria-label="main">
                     {this.state.rows && (
                         this.state.rows.map((d) => {
