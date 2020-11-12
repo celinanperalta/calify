@@ -10,10 +10,14 @@ import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import '../App.css';
+
+import ScheduleDataService from '../services/ScheduleDataService'
 import PlaylistRow from './PlaylistRow';
 import UniqueId from 'react-html-id';
 import spfetch from '../spfetch';
 import fetchPlayer from '../fetchPlayer';
+
+
 
 function ListItemLink(props) {
   return <ListItem button component = "a" {...props}/>;
@@ -158,13 +162,20 @@ class Scheduler extends React.Component {
 
     handleAddRow = async () => {
         this.setState((prevState, props) => {
-            const row = {
+            // const row = {
+            //     id: this.state.count,
+            //     name: "",
+            //     uri: "",
+            //     start_time: "12:00",
+            //     end_time: "12:30"
+            // };
+            const row = new PlaylistRow({
                 id: this.state.count,
                 name: "",
                 uri: "",
                 start_time: "12:00",
                 end_time: "12:30"
-            };
+            });
             return {
                 rows: [...prevState.rows, row]
             };
@@ -219,6 +230,10 @@ class Scheduler extends React.Component {
        
     }
 
+    handleSaveSchedule = () => {
+        console.log(ScheduleDataService.getAll());
+    }
+
 
     handlePlayPreviousTrack = () => this.state.player.previousTrack();
     handlePlayNextTrack = () => this.state.player.nextTrack();
@@ -249,40 +264,11 @@ class Scheduler extends React.Component {
                             variant="contained"
                             color="primary"
                             className={''}
-                            onClick={this.handleAddRow}>
-                            Create New Schedule
+                            onClick={this.handleSaveSchedule}>
+                            Save Schedule
                         </Button>
                     </Grid>
-                    {/* <Grid item xs={3}>
-                        <Button
-                            centered
-                            variant="contained"
-                            color="primary"
-                            className={''}
-                            onClick={this.setSortedRows}>
-                            Sort
-                        </Button>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <Button
-                            centered
-                            variant="contained"
-                            color="primary"
-                            className={''}
-                            onClick={this.handleGetPlaying}>
-                            Get Next
-                        </Button>
-                    </Grid> */}
-                    {/* <Grid item xs={3}>
-                        <Button
-                            centered
-                            variant="contained"
-                            color="primary"
-                            className={''}
-                            onClick={this.checkTimeOverlap}>
-                            Check Overlap
-                        </Button>
-                    </Grid> */}
+
                 </Grid>
         </CardContent> 
         <Paper className = "ScrollList" >

@@ -12,7 +12,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import '../App.css';
-import moment from 'moment'
 
 function ListItemLink(props) {
   return <ListItem button component = "a" {...props}/>;

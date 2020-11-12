@@ -5,7 +5,7 @@ const {
 
 module.exports = function (app) {
     app.use(
-        '/api/login',
+        '/api',
         createProxyMiddleware({
             target: 'http://localhost:8888',
             changeOrigin: false,

@@ -26,7 +26,7 @@ import spfetch from './spfetch';
 import Firebase from 'firebase';
 
 //Components
-import Playlists from './components/Playlists';
+import PlaylistDisplay from './components/PlaylistDisplay';
 import Scheduler from './components/Scheduler';
 // import Queue from './components/Queue';
 
@@ -53,7 +53,11 @@ class App extends Component {
     api spotify
     local: 3000 / accessToken
     */
-    var isLoggedIn = await fetch("https://cors-anywhere.herokuapp.com/http://localhost:8888/login").then(res => {
+    var isLoggedIn = await fetch("https://cors-anywhere.herokuapp.com/http://localhost:8888/api/login", {
+      headers: {
+        origin: "http://localhost:3000"
+      }
+    }).then(res => {
       console.log(res.text());
       this.setState({
         isLoggedIn: true
@@ -275,7 +279,10 @@ class LoggedInScreen extends Component {
           <Grid container item xs={4} spacing={3} direction="column">
             {playlists && (
             <Grid item>
-              <Playlists data={playlists}/>
+              < PlaylistDisplay data = {
+                playlists
+              }
+              />
             </Grid>
             )}
             {playlists && (

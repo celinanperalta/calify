@@ -14,6 +14,7 @@ var querystring = require('querystring');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 const admin = require('firebase-admin');
+// const functions = require('firebase-functions');
 const config = require('./../config.json');
 
 var client_id = config.spotify.client_id; // Your client id
@@ -28,7 +29,12 @@ const { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } = require('constants');
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: `https://${serviceAccount.project_id}.firebaseio.com`
-});
+}); 
+
+//Firebase collections
+const db = admin.database();
+const userCollection = '/users/';
+const scheduleCollection = 'schedules';
 
 /**
  * Generates a random string containing numbers and letters
@@ -45,6 +51,7 @@ var generateRandomString = function (length) {
     return text;
 };
 
+//Initialize Express app
 var stateKey = 'spotify_auth_state';
 
 var app = express();
@@ -52,6 +59,7 @@ var app = express();
 app.use(express.static(__dirname + '/public'))
     .use(cors())
     .use(cookieParser());
+
 
 /**
  * Creates a Firebase account with the given user profile and returns a custom auth token allowing
@@ -64,9 +72,15 @@ function createFirebaseAccount(spotifyID, displayName, photoURL, accessToken) {
     // The UID we'll assign to the user.
     const uid = `${spotifyID}`;
 
+    console.log("Created uid: ", uid);
+
     // Save the access token to the Firebase Realtime Database.
     const databaseTask = admin.database().ref(`/users/${uid}`)
-        .set(accessToken);
+        .set({
+            uid: uid,
+            accessToken: accessToken,
+            displayName: displayName
+        });
 
     // Create or update the user account.
     const userCreationTask = admin.auth().updateUser(uid, {
@@ -75,6 +89,7 @@ function createFirebaseAccount(spotifyID, displayName, photoURL, accessToken) {
     }).catch(error => {
         // If user does not exists we create it.
         if (error.code === 'auth/user-not-found') {
+            console.log("Creating user: ", uid);
             return admin.auth().createUser({
                 uid: uid,
                 displayName: displayName,
@@ -241,11 +256,43 @@ app.get('/api/refresh_token', function (req, res) {
     });
 });
 
-app.get('/api/hello', function (req, res) {
+//Read a single user
+app.get('/api/users/:userId', function (req, res) {
+    const userID = req.params.userId;
+
+    const userRef = db.ref(userCollection + userID);
+
+
+    
     console.log("it works");
 });
 
-//todo: add api endpoint for getting playlists, user info, and controlling playback
+//Read all users
+app.get('/api/users', function (req, res) {
+    try {
+        var users = [];
+        db.ref(userCollection).once('value', function (snapshot) {
+            snapshot.forEach((user) => {
+                users.push({
+                    key: user.key,
+                    accessToken: user.value
+                });
+            });
+        } );
+        
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+app.post('/api/users/:userId', function (req, res) {
+    
+});
+
+//todo: add api endpoints for getting playlists, user info, and controlling playback
+
+
 
 console.log('Listening on 8888');
 app.listen(8888);

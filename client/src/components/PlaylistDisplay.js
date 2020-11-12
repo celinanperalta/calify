@@ -21,16 +21,16 @@ function ListItemLink(props) {
   return <ListItem button component = "a" {...props}/>;
 }
 
-class Playlists extends React.Component {
+class PlaylistDisplay extends React.Component {
 
   constructor(props) {
     super(props);
 
-  const items = props.data.map((d) =>
-      <ListItemLink key={d.uri} href={d.external_urls.spotify}>
-        <ListItemText primary={d.name}>{d.name}</ListItemText>
-      </ListItemLink>
-    );
+    const items = props.data.map((d) =>
+        <ListItemLink key={d.uri} href={d.external_urls.spotify}>
+          <ListItemText primary={d.name}>{d.name}</ListItemText>
+        </ListItemLink>
+      );
 
     this.state = {
       start_time: "0",
@@ -63,4 +63,4 @@ class Playlists extends React.Component {
   }
 }
 
-export default Playlists
+export default PlaylistDisplay
